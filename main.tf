@@ -27,11 +27,11 @@ resource "aws_instance" "blog" {
   }
 }
 
-module "vpc" {
+module "blog_vpc" {
   source = "terraform-aws-modules/vpc/aws"
   version = "5.7.0"
 
-  name = "blog-vpc"
+  name = "dev"
   cidr = "10.0.0.0/16"
 
   azs             = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
