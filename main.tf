@@ -14,6 +14,19 @@ data "aws_ami" "app_ami" {
   owners = ["979382823631"] # Bitnami
 }
 
+resource "aws_instance" "blog" {
+  ami           = data.aws_ami.app_ami.id
+  instance_type = var.instance_type
+
+  vpc_security_group_ids = [module.blog_sg.security_group_id]
+
+  subnet_id = module.blog_vpc.public_subnets[0]
+
+  tags = {
+    Name = "HelloWorld"
+  }
+}
+
 module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
   version = "5.7.0"
@@ -28,19 +41,6 @@ module "vpc" {
   tags = {
     Terraform = "true"
     Environment = "dev"
-  }
-}
-
-resource "aws_instance" "blog" {
-  ami           = data.aws_ami.app_ami.id
-  instance_type = var.instance_type
-
-  vpc_security_group_ids = [module.blog_sg.security_group_id]
-
-  subnet_id = module.blog_vpc.public_subnets[0]
-
-  tags = {
-    Name = "HelloWorld"
   }
 }
 
