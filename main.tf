@@ -31,7 +31,7 @@ module "vpc" {
   source = "terraform-aws-modules/vpc/aws"
   version = "5.7.0"
 
-  name = "blog"
+  name = "blog-vpc"
   cidr = "10.0.0.0/16"
 
   azs             = ["eu-west-2a", "eu-west-2b", "eu-west-2c"]
